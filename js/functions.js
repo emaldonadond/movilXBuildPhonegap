@@ -266,6 +266,39 @@ function handleLogin() {
         $.post("http://172.16.22.91/movilx_prueba/usercheck.php?method=login&returnformat=json", {username:u,password:p}, function(res) {
             if(res == true) {
                 //store
+                navigator.notification.alert("OMG It's in", function() {});
+                window.localStorage["username"] = u;
+                window.localStorage["password"] = p;             
+                $.mobile.changePage("dashboard.html");
+            } else {
+                navigator.notification.alert("Your login failed", function() {});
+            }
+         $("#submitButton").removeAttr("disabled");
+        },"json");
+    } else {
+        //Thanks Igor!
+        navigator.notification.alert("You must enter a username and password", function() {});
+        $("#submitButton").removeAttr("disabled");
+    }
+    return false;
+}
+
+
+
+function handleLoginRegister() {
+    var form = $("#signUpForm");    
+    //disable the button so we can't resubmit while we wait
+    $("#submitButton",form).attr("disabled","disabled");
+    var u = $("#username", form).val();
+    var p = $("#password", form).val();
+
+    
+    console.log("click");
+    if(u != '' && p!= '') {
+        $.post("http://172.16.22.91/movilx_prueba/usercheck.php?method=login&returnformat=json", {username:u,password:p}, function(res) {
+            if(res == true) {
+                //store
+                navigator.notification.alert("OMG It's in", function() {});
                 window.localStorage["username"] = u;
                 window.localStorage["password"] = p;             
                 $.mobile.changePage("aurelio.html");
@@ -293,4 +326,74 @@ function initApplication()
 {
    //navigator.notification.alert("nigga!", function() {});
    $("#loginForm").on("submit",handleLogin);
+}
+
+
+/*
+*  Fecha Creacion: Febrero 2, 2013
+*  Creado por: Edwin Maldonado ERMP
+*  Descripcion: Llevar registro de usuarios
+*/
+
+function handleRegistration(){
+  var form = $("#signUpForm");  
+  //disable the button so we can't resubmit while we wait
+  $("#submitButton",form).attr("disabled","disabled");
+
+
+  // RegistrationPart:
+
+  //disable the button so we can't resubmit while we wait
+  $("#submitButton",form).attr("disabled","disabled");
+  var u = $("#username", form).val();
+  var p = $("#password", form).val();
+  var e = $("#email", form).val();
+    
+  console.log("click");
+    if(u != '' && p!= '') {
+        $.post("http://172.16.22.91/movilx_prueba/userRegistration.php", {username:u,password:p, email:e}, function(res) {
+            if(res == true) {
+                //store
+                navigator.notification.alert("OMG It's in", function() {});
+                window.localStorage["username"] = u;
+                window.localStorage["password"] = p;             
+                $.mobile.changePage("aurelio.html");
+            } else {
+                if(res == '0'){
+                  //Si es 0 es porque el user esta repetido
+                  navigator.notification.alert("Error al registrarse: Usuario ya existe. ", function() {});
+                }else{
+                  navigator.notification.alert("Error al registrarse: ", function() {});  
+                }
+                
+            }
+         $("#submitButton").removeAttr("disabled");
+        },"json");
+    } else {
+        //Thanks Igor!
+        navigator.notification.alert("You must enter a username and password", function() {});
+        $("#submitButton").removeAttr("disabled");
+    }
+    return false;
+  // --------- END -----------
+
+  //AutoLogin then.
+  handleLoginRegister();
+}
+
+
+function initSignUp()
+{ 
+  // some other code
+  // maybe disabling submit button
+  // then:
+  
+  //$("#signUpForm").validate($("#signUpForm").on("submit",handleRegistration));
+  
+  $("#signUpForm").validate({
+   submitHandler: function(form) {
+     $("#signUpForm").on("submit",handleRegistration);
+   }
+  });
+
 }

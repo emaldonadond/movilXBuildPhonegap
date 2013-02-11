@@ -11,11 +11,20 @@ function getEditionList() {
     $('#editionList li').remove();
     editions = data.items;
     $.each(editions, function(index, edition) {
-      $('#editionList').append('<li><a href="editiondetails.html?id=' + edition.id + '">' +
-          '<img src="pics/' + edition.picture + '"/>' +
-          '<h4>' + edition.firstName + ' ' + edition.lastName + '</h4>' +
-          '<p>' + edition.title + '</p>' +
-          '<span class="ui-li-count">' + edition.reportCount + '</span></a></li>');
+      $('#editionList').append(
+          '<li class="loc-image"> <div>' + 
+          '<img src="http://nuestrodiario.com/nuestrodiario/pages/edicion/2013/02/07/edicion_nacional/1-thumb.jpg"/>' + 
+          '</div></li>' +
+
+          '<li class="loc-credits">' + 
+          '<img src="resources/images/profile-01.png"/>' +
+          '<h3>' + edition.edition_publication_date + '</h3>' +
+          '<p>by <a href="#">sandra</a>.</p>' +
+          '</li>' +
+
+          '<li class="loc-comments">' + 
+          '<p>2 comments, 4 likes</p>' +
+          '</li>');
     });
     $('#editionList').listview('refresh');
   });

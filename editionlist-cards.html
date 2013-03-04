@@ -9,7 +9,7 @@
       
 
 <script src="js/jquery.mobile-1.2.0.min.js"></script>  
-<script src="cordova-2.2.0.js"></script>
+<script src="cordova-2.3.0.js"></script>
 </head>
     
 <body>
@@ -25,7 +25,24 @@
    		 <br>
          <ul id="editionList" data-role="listview" class="loc-card" data-inset="true" data-filter="true"></ul>
 
-    </div>     
+    </div>   
+
+
+    <div data-role="footer" data-position="fixed" data-id="tab1">
+
+        <div data-role="navbar">
+	      <ul>
+	        <li><a href="#" data-icon="home" onclick="changeToHomePage();">Inicio</a></li>
+	        <li>
+            <a href="#" data-icon="star" class="ui-btn-active ui-state-persist" onclick="changeToEditionViewPage();">Mis Ediciones
+            </a>
+          </li>
+	        <li><a href="#" data-icon="grid" onclick="changeToProfilePage();">Perfil</a></li>
+	      </ul>
+    	</div>
+
+
+    </div>  
     <script src="js/editionlist.js"></script>
 </div>
 

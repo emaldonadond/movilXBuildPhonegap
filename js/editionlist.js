@@ -1,4 +1,5 @@
-var serviceURL = "http://172.16.22.91/movilx_prueba/layerx/";
+//var serviceURL = "http://172.16.22.91/movilx_prueba/layerx/";
+var serviceURL = "http://www.nuestrodiario.com/MovilX/mobileOps/layerx/";
 
 var editions;
 var dateNoScope; 
@@ -44,7 +45,7 @@ function getEditionList() {
           '</li>' +
 
           '<li class="loc-comments">' + 
-          '<a href="#" data-role="button" id="gotoGalleryBtnBoom" onclick="changePageWithArguments('+ "\'" + edition.fixed_dash_date + "\'" + ','+ edition.supplement_id +');">AQUI</a><p>2 comments, 4 likes</p>' +
+          '<a href="#" data-role="button" id="gotoGalleryBtnBoom" onclick="changePageWithArguments('+ "\'" + edition.fixed_dash_date + "\'" + ','+ edition.supplement_id +');">ABRIR AQUI</a><p>2 comments, 4 likes</p>' +
           '</li>');
           console.log("Debug Params 00x, date:  "+edition.fixed_dash_date+", suplem: "+edition.supplement_id);
     });

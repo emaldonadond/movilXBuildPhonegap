@@ -1,3 +1,28 @@
+var movilxUserId = 0; 
+
+
+function changeToEditionViewPage(){
+  console.log("Debug Params BolsaEdiciones, user:  "+movilxUserId);
+  $.mobile.changePage("listOfEditionView.html",{data:{userId:movilxUserId}, reloadPage: true});
+  //$.mobile.changePage("list-of-cards.html",{data:{userId:movilxUserId}});
+  
+}
+
+
+function changeToHomePage(){
+  console.log("Debug Params a HOME:  "+movilxUserId);
+  $.mobile.changePage("editionlist-cards.html",{data:{userId:movilxUserId}, reloadPage: true});
+ 
+}
+
+
+function changeToProfilePage(){
+  console.log("Debug Params a PROFILE:  "+movilxUserId);
+  $.mobile.changePage("userProfile.html",{data:{userId:movilxUserId}, reloadPage: true});
+ 
+}
+
+
 function checkRequirements()
 {
    if (navigator.connection.type == Connection.NONE)
@@ -247,7 +272,7 @@ function createPositionsHistoryList(idElement, positions)
 
 function checkPreAuth() {
     var form = $("#loginForm");
-    navigator.notification.alert("nigga check Path!", function() {});
+    
     if(window.localStorage["username"] != undefined && window.localStorage["password"] != undefined) {
         $("#username", form).val(window.localStorage["username"]);
         $("#password", form).val(window.localStorage["password"]);
@@ -263,9 +288,11 @@ function handleLogin() {
     var p = $("#password", form).val();
     console.log("click");
     if(u != '' && p!= '') {
-        $.post("http://172.16.22.91/movilx_prueba/usercheck.php?method=login&returnformat=json", {username:u,password:p}, function(res) {
-            if(res == true) {
+        $.post("http://www.nuestrodiario.com/MovilX/mobileOps/usercheck.php?method=login&returnformat=json", {username:u,password:p}, function(res) {
+            
+            if(res != 0) {
                 //store
+                movilxUserId = res;
                 navigator.notification.alert("Bienvenido a NuestroDiario Digital.", function() {});
                 window.localStorage["username"] = u;
                 window.localStorage["password"] = p;             
@@ -295,7 +322,7 @@ function handleLoginRegister() {
     
     console.log("click");
     if(u != '' && p!= '') {
-        $.post("http://172.16.22.91/movilx_prueba/usercheck.php?method=login&returnformat=json", {username:u,password:p}, function(res) {
+        $.post("http://www.nuestrodiario.com/MovilX/mobileOps/usercheck.php?method=login&returnformat=json", {username:u,password:p}, function(res) {
             if(res == true) {
                 //store
                 navigator.notification.alert("OMG It's in", function() {});
@@ -326,6 +353,7 @@ function initApplication()
 {
    //navigator.notification.alert("nigga!", function() {});
    $("#loginForm").on("submit",handleLogin);
+
 }
 
 
@@ -351,7 +379,7 @@ function handleRegistration(){
     
   console.log("click");
     if(u != '' && p!= '') {
-        $.post("http://172.16.22.91/movilx_prueba/userRegistration.php", {username:u,password:p, email:e}, function(res) {
+        $.post("http://www.nuestrodiario.com/MovilX/mobileOps/userRegistration.php", {username:u,password:p, email:e}, function(res) {
             if(res == true) {
                 //store
                 navigator.notification.alert("Usuario creado! Bienvenido", function() {});
